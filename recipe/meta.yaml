@@ -19,6 +19,7 @@ requirements:
   host:
     - python
     - pip
+    - wheel
   run:
     - python
     - petl >=1.6
@@ -50,11 +51,18 @@ test:
     - pip
 
 about:
-  home: http://github.com/frictionlessdata/frictionless-py
+  home: https://github.com/frictionlessdata/frictionless-py
+  dev_url: https://github.com/frictionlessdata/frictionless-py
   license: MIT
   license_family: MIT
   license_file: LICENSE.md
   summary: Frictionless is a framework to describe, extract, validate, and transform tabular data
+  doc_url: https://framework.frictionlessdata.io/
+  description: |
+    Data management framework for Python that provides functionality to describe, extract, validate,
+    and transform tabular data (DEVT Framework). It supports a great deal of data schemes and formats,
+    as well as provides popular platforms integrations.
+    The framework is powered by the lightweight yet comprehensive Frictionless Data Specifications.
 
 extra:
   recipe-maintainers:
