@@ -1,5 +1,5 @@
 {% set name = "frictionless" %}
-{% set version = "5.5.6" %}
+{% set version = "4.40.11" %}
 
 package:
   name: {{ name|lower }}
@@ -7,42 +7,37 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: a3537634989ae2aa294d8031dc70630bf904191b1de05570097b87c706b38146
+  sha256: e7d83d82cd3273820c74ac715e8d78285697f1eceda49a2417a72f839420d42e
 
 build:
   number: 0
   entry_points:
     - frictionless = frictionless.__main__:program
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
-  noarch: python
+  script: {{ PYTHON }} -m pip install . --no-deps -vv --no-build-isolation
 
 requirements:
   host:
     - python
     - pip
+    - wheel
   run:
-    - python >=3.8
+    - python
     - petl >=1.6
-    - marko >=1.0
-    - attrs >=21.3
-    - jinja2 >=3.0
+    - marko >=1.0,<2
     - pyyaml >=5.3
     - isodate >=0.6
     - rfc3986 >=1.4
     - chardet >=3.0
-    - pydantic >=1.9
     - requests >=2.10
-    - humanize >=4.2
-    - tabulate >=0.8.10
     - jsonschema >=2.5
     - simpleeval >=0.9.11
     - stringcase >=1.2
-    - typer[all] >=0.5
+    - typer >=0.5
     - validators >=0.18
     - python-slugify >=1.2
     - python-dateutil >=2.8
-    - typing-extensions >=4.3
-
+    - tabulate >=0.8.10
+    - jinja2 >=3.0.3
 
 test:
   imports:
@@ -50,15 +45,24 @@ test:
   commands:
     - frictionless --help
     - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    # upstream tests require data files and take too much time to run
   requires:
     - pip
 
 about:
-  home: http://github.com/frictionlessdata/frictionless-py
+  home: https://github.com/frictionlessdata/frictionless-py
+  dev_url: https://github.com/frictionlessdata/frictionless-py
   license: MIT
   license_family: MIT
   license_file: LICENSE.md
   summary: Frictionless is a framework to describe, extract, validate, and transform tabular data
+  doc_url: https://framework.frictionlessdata.io/
+  description: |
+    Data management framework for Python that provides functionality to describe, extract, validate,
+    and transform tabular data (DEVT Framework). It supports a great deal of data schemes and formats,
+    as well as provides popular platforms integrations.
+    The framework is powered by the lightweight yet comprehensive Frictionless Data Specifications.
 
 extra:
   recipe-maintainers:
